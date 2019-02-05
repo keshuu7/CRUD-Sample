@@ -1,3 +1,4 @@
+import { EmployeeService } from './employees/employee.service';
 import { SelectRequiredValidatorDirective } from './shared/select-required-validator.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -7,9 +8,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator.directive';
 
 
+
 import { AppComponent } from './app.component';
 import { ListEmployeesComponent } from './employees/list-employees.component';
 import { CreateEmployeeComponent } from './employees/create-employee.component';
+import { DisplayEmployeeComponent } from './employees/display-employee.component';
 
 const appRoutes: Routes = [
   {path: 'list', component: ListEmployeesComponent},
@@ -23,7 +26,8 @@ const appRoutes: Routes = [
     ListEmployeesComponent,
     CreateEmployeeComponent,
     SelectRequiredValidatorDirective,
-    ConfirmEqualValidatorDirective
+    ConfirmEqualValidatorDirective,
+    DisplayEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,7 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

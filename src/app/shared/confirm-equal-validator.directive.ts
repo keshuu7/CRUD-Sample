@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
 
 
@@ -12,10 +12,11 @@ import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
 })
 
 export class ConfirmEqualValidatorDirective implements Validator {
-    @Input() appConfirmEqualValidator: string;
-    validate(control: AbstractControl): { [key: string]: any} | null {
-        const controlToCompare = control.parent.get(this.appConfirmEqualValidator);
-        if(controlToCompare && controlToCompare.value !== control.value){
+
+    validate(passwordGroup: AbstractControl): { [key: string]: any} | null {
+        const passwordField = passwordGroup.get('passWord');
+        const confirmPasswordField = passwordGroup.get('confirmPassword');
+        if(passwordField && confirmPasswordField && confirmPasswordField.value !== passwordField.value){
             return {'notEqual': true};
         }
         return null;
