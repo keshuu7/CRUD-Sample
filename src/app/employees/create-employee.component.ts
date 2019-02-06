@@ -1,6 +1,6 @@
 import { EmployeeService } from './employee.service';
 import { Department } from './../models/department.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Employee } from '../models/employee.model';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-employee.component.scss']
 })
 export class CreateEmployeeComponent implements OnInit {
-
+  @ViewChild('employeeForm') public createEmployeeForm: NgForm;
   previewPath = false;
   datePickerConfig: Partial<BsDatepickerConfig>;
   employee: Employee = {
@@ -48,7 +48,9 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   saveEmployee(): void{
-    this._employeeService.save(this.employee);
+    const newEmployee: Employee = Object.assign({}, this.employee);
+    this._employeeService.save(newEmployee);
+    this.createEmployeeForm.reset();
     this._router.navigate(['list']);
   }
 
