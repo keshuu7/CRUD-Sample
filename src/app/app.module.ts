@@ -17,11 +17,15 @@ import { CreateEmployeeComponent } from './employees/create-employee.component';
 import { DisplayEmployeeComponent } from './employees/display-employee.component';
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
+import { EmployeeListResolverService } from './employees/employee-list-resolver-service';
+import { PageNotFounndComponent } from './page-not-founnd.component';
+import { EmployeeDetailsGuardService } from './employees/employee-details-guard.service';
 
 const appRoutes: Routes = [
   {
     path: 'list',
-    component: ListEmployeesComponent
+    component: ListEmployeesComponent,
+    resolve: { employeeList: EmployeeListResolverService}
   },
   {
     path: 'create', 
@@ -30,12 +34,17 @@ const appRoutes: Routes = [
   },
   {
     path: 'employees/:id',
-    component: EmployeeDetailsComponent
+    component: EmployeeDetailsComponent,
+    canActivate: [EmployeeDetailsGuardService]
   },
   {
   path: '', 
   redirectTo: '/list', 
   pathMatch: 'full'
+  },
+  {
+    path: 'notfound',
+    component: PageNotFounndComponent
   }
 ];
 
@@ -48,7 +57,8 @@ const appRoutes: Routes = [
     ConfirmEqualValidatorDirective,
     DisplayEmployeeComponent,
     EmployeeDetailsComponent,
-    EmployeeFilterPipe
+    EmployeeFilterPipe,
+    PageNotFounndComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +66,7 @@ const appRoutes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [EmployeeService, CreateEmployeeCanDeactivateGuard],
+  providers: [EmployeeService, CreateEmployeeCanDeactivateGuard, EmployeeListResolverService, EmployeeDetailsGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
