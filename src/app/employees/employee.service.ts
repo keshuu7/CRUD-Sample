@@ -6,7 +6,7 @@ import 'rxjs/add/operator/delay';
 
 
 @Injectable()
-export class EmployeeService{
+export class EmployeeService {
     private listEmployees: Employee[] = [
         {
             id: 1,
@@ -18,8 +18,8 @@ export class EmployeeService{
             department: '1',
             isActive: true,
             photoPath: 'assets/images/ic_cloudlauncher.png'
-          },
-          {
+        },
+        {
             id: 2,
             name: 'sdf',
             gender: 'male',
@@ -29,8 +29,8 @@ export class EmployeeService{
             department: '2',
             isActive: true,
             photoPath: 'assets/images/ic_cloudlauncher.png'
-          },
-          {
+        },
+        {
             id: 3,
             name: 'tty',
             gender: 'male',
@@ -40,18 +40,27 @@ export class EmployeeService{
             department: '3',
             isActive: true,
             photoPath: 'assets/images/ic_cloudlauncher.png'
-          }
+        }
     ];
 
     getEmployees(): Observable<Employee[]> {
         return Observable.of(this.listEmployees).delay(2000);
     }
 
-    getEmployee(id: number): Employee{
+    getEmployee(id: number): Employee {
         return this.listEmployees.find(e => e.id === id);
     }
 
-    save(employee: Employee){
-        this.listEmployees.push(employee); 
+    save(employee: Employee) {
+        if (employee.id === null) {
+            const maxid = this.listEmployees.reduce(function(e1,e2){
+                return (e1.id > e2.id) ? e1 : e2;
+            }).id;
+            employee.id = maxid + 1;
+            this.listEmployees.push(employee);
+        } else {
+            const foundIndex = this.listEmployees.findIndex( e => e.id === employee.id);
+            this.listEmployees[foundIndex] = employee;
+        }
     }
 }

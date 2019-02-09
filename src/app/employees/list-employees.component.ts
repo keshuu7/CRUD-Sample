@@ -34,10 +34,4 @@ export class ListEmployeesComponent implements OnInit {
             employee.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
     }
 
-    onClick(employeeid: number) {
-        this._router.navigate(['/employees', employeeid], {
-            queryParams: { 'searchTerm': this.searchTerm, 'testParam': 'testValue' }
-        });
-    }
-
 }
