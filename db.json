@@ -1,0 +1,49 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "kesavan",
+      "gender": "male",
+      "email": "kjsfjb@mail.com",
+      "contactPreference": "Email",
+      "dateOfBirth": "08/04/1993",
+      "department": "1",
+      "isActive": true,
+      "photoPath": "assets/images/ic_cloudlauncher.png"
+    },
+    {
+      "id": 2,
+      "name": "nivedha",
+      "gender": "male",
+      "email": "kjsfjb@mail.com",
+      "contactPreference": "Email",
+      "dateOfBirth": "08/04/1993",
+      "department": "1",
+      "isActive": true,
+      "photoPath": "assets/images/ic_cloudlauncher.png"
+    },
+    {
+      "id": 3,
+      "name": "thiru",
+      "gender": "male",
+      "email": "kjsfjb@mail.com",
+      "contactPreference": "Email",
+      "dateOfBirth": "08/04/1993",
+      "department": "1",
+      "isActive": true,
+      "photoPath": "assets/images/ic_cloudlauncher.png"
+    },
+    {
+      "id": 4,
+      "name": "JEGATHISH J",
+      "gender": "male",
+      "email": "jegathish.12@gmail.com",
+      "phoneNumber": "9629677600",
+      "contactPreference": "phoneNumber",
+      "dateOfBirth": "2019-02-17T07:44:16.000Z",
+      "department": "2",
+      "isActive": true,
+      "photoPath": "assets/images/ic_cloudlauncher.png"
+    }
+  ]
+}

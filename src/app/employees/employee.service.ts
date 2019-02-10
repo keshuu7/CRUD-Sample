@@ -3,10 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-
+import 'rxjs/add/operator/catch';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class EmployeeService {
+    constructor(private _httpClient: HttpClient){
+
+    }
     private listEmployees: Employee[] = [
         {
             id: 1,
@@ -44,23 +50,41 @@ export class EmployeeService {
     ];
 
     getEmployees(): Observable<Employee[]> {
-        return Observable.of(this.listEmployees).delay(2000);
+        return this._httpClient.get<Employee[]>('http://localhost:3000/employees')
+                .pipe(catchError(this.handleError));
+    }
+
+    private handleError(errorResponse: HttpErrorResponse){
+        if(errorResponse.error instanceof ErrorEvent){
+            console.log('Client Error',errorResponse.error.message);
+        } else {
+            console.log('Server error',errorResponse);
+        }
+
+        return new ErrorObservable('Error in service we are working on it');
     }
 
     getEmployee(id: number): Employee {
         return this.listEmployees.find(e => e.id === id);
     }
 
-    save(employee: Employee) {
+    save(employee: Employee): Observable<Employee> {
         if (employee.id === null) {
-            const maxid = this.listEmployees.reduce(function(e1,e2){
-                return (e1.id > e2.id) ? e1 : e2;
-            }).id;
-            employee.id = maxid + 1;
-            this.listEmployees.push(employee);
+            return this._httpClient.post<Employee>('http://localhost:3000/employees',employee,{
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'    
+                })
+            }).pipe(catchError(this.handleError));
         } else {
             const foundIndex = this.listEmployees.findIndex( e => e.id === employee.id);
             this.listEmployees[foundIndex] = employee;
+        }
+    }
+
+    deleteEmployee(id: number){
+        const i = this.listEmployees.findIndex( e => e.id === id);
+        if(i !== -1){
+            this.listEmployees.splice(i,1);
         }
     }
 }

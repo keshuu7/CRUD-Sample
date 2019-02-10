@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule,Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator.directive';
 import { CreateEmployeeCanDeactivateGuard } from './employees/create-employee-can-deactivate-guard.service';
@@ -20,6 +21,7 @@ import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { EmployeeListResolverService } from './employees/employee-list-resolver-service';
 import { PageNotFounndComponent } from './page-not-founnd.component';
 import { EmployeeDetailsGuardService } from './employees/employee-details-guard.service';
+import { AccordionComponent } from './shared/accordion.component';
 
 const appRoutes: Routes = [
   {
@@ -58,11 +60,13 @@ const appRoutes: Routes = [
     DisplayEmployeeComponent,
     EmployeeDetailsComponent,
     EmployeeFilterPipe,
-    PageNotFounndComponent
+    PageNotFounndComponent,
+    AccordionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],

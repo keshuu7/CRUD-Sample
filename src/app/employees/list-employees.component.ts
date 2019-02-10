@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class ListEmployeesComponent implements OnInit {
     employees: Employee[];
     filteredEmployees: Employee[];
+    error: string;
+    
 
     private _searchTerm: string;
     get searchTerm(): string {
@@ -21,7 +23,12 @@ export class ListEmployeesComponent implements OnInit {
     }
 
     constructor(private _router: Router, private _route: ActivatedRoute) {
-        this.employees = this._route.snapshot.data['employeeList'];
+        const resolvedData = this._route.snapshot.data['employeeList'];
+        if(Array.isArray(resolvedData)){
+            this.employees = resolvedData;
+        } else{
+            this.error = resolvedData;
+        }
         this.filteredEmployees = this.employees;
     }
 
@@ -32,6 +39,13 @@ export class ListEmployeesComponent implements OnInit {
     filterEmployees(searchTerm: string) {
         return this.employees.filter(employee =>
             employee.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+    }
+
+    onDelete(id: number){
+        const i = this.filteredEmployees.findIndex( e => e.id === id);
+        if(i !== -1){
+            this.filteredEmployees.splice(i,1);
+        }
     }
 
 }
