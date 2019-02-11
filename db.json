@@ -12,19 +12,8 @@
       "photoPath": "assets/images/ic_cloudlauncher.png"
     },
     {
-      "id": 2,
-      "name": "nivedha",
-      "gender": "male",
-      "email": "kjsfjb@mail.com",
-      "contactPreference": "Email",
-      "dateOfBirth": "08/04/1993",
-      "department": "1",
-      "isActive": true,
-      "photoPath": "assets/images/ic_cloudlauncher.png"
-    },
-    {
       "id": 3,
-      "name": "thiru",
+      "name": "thiruppathy",
       "gender": "male",
       "email": "kjsfjb@mail.com",
       "contactPreference": "Email",
